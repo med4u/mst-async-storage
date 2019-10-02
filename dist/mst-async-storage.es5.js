@@ -40,13 +40,12 @@ var AsyncStorage = require("@react-native-community/async-storage");
 var CryptoJS = require("crypto-js");
 function save(key, snapshot, cryptoPassword) {
     return __awaiter(this, void 0, void 0, function () {
-        var data, encryptedData;
+        var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     data = JSON.stringify(snapshot);
-                    encryptedData = CryptoJS.AES.encrypt(data, cryptoPassword).toString();
-                    return [4, AsyncStorage.setItem(key, encryptedData)];
+                    return [4, AsyncStorage.setItem(key, CryptoJS.AES.encrypt(data, cryptoPassword).toString())];
                 case 1:
                     _a.sent();
                     return [2];

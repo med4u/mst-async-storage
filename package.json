@@ -42,6 +42,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "@types/lodash.camelcase": "4.3.6",
     "ava": "2.4.0",
+    "crypto-js": "^3.1.9-1",
     "lodash.camelcase": "4.3.0",
     "mobx": "5.13.0",
     "mobx-state-tree": "3.14.1",
@@ -63,7 +64,5 @@
       "build/**/*.test.js"
     ]
   },
-  "dependencies": {
-    "crypto-js": "^3.1.9-1"
-  }
+  "dependencies": {}
 }

@@ -59,7 +59,7 @@
     }
     function load(key, cryptoPassword) {
         return __awaiter(this, void 0, void 0, function () {
-            var raw, _a;
+            var raw, bytes, data, _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -67,8 +67,10 @@
                         return [4, AsyncStorage.getItem(key)];
                     case 1:
                         raw = _b.sent();
+                        bytes = CryptoJS.AES.decrypt(raw, cryptoPassword);
+                        data = bytes.toString(CryptoJS.enc.Utf8);
                         if (raw) {
-                            return [2, JSON.parse(CryptoJS.AES.decrypt(raw, cryptoPassword).toString())];
+                            return [2, JSON.parse(data)];
                         }
                         return [3, 3];
                     case 2:

@@ -9,8 +9,10 @@ export async function save(key: string, snapshot: {},cryptoPassword:string) {
 export async function load(key: string,cryptoPassword:string) {
   try {
     const raw = await AsyncStorage.getItem(key)
+    let bytes = CryptoJS.AES.decrypt(raw,cryptoPassword)
+    let data = bytes.toString(CryptoJS.enc.Utf8)
     if (raw) {
-      return JSON.parse(CryptoJS.AES.decrypt(raw,cryptoPassword).toString())
+      return JSON.parse(data)
     }
   } catch {}
 

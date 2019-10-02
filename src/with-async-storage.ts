@@ -15,6 +15,11 @@ export interface WithAsyncStorageOptions {
   key?: string
 
   /**
+   * The Crypto-JS AES password.
+   */
+  CryptoPassword?: string
+
+  /**
    * Should we monitor for changes via onSnapshot (default: true)?
    */
   autoSave?: boolean
@@ -42,12 +47,14 @@ export const withAsyncStorage = (options: WithAsyncStorageOptions = {}) => (
   const key = options.key || getType(self).name
   const autoSave = typeof options.autoSave === "boolean" ? options.autoSave : true
 
+  const Password = options.CryptoPassword || "DefaultPassword"
+
   /**
    * Turns on AsyncStorage saving when the snapshot changes.
    */
   const enableSaving = () => {
     disposer && disposer()
-    disposer = onSnapshot(self, snapshot => save(key, filterSnapshotKeys(snapshot)))
+    disposer = onSnapshot(self, snapshot => save(key, filterSnapshotKeys(snapshot),Password))
   }
 
   /**
@@ -96,7 +103,7 @@ export const withAsyncStorage = (options: WithAsyncStorageOptions = {}) => (
        * Loads from async storage.
        */
       load: flow(function*() {
-        const data = yield load(key)
+        const data = yield load(key,Password)
         if (data) {
           applySnapshot(self, data)
         }
@@ -115,7 +122,7 @@ export const withAsyncStorage = (options: WithAsyncStorageOptions = {}) => (
        * called if autoSave has been turned off.
        */
       save: flow(function*() {
-        yield save(key, filterSnapshotKeys(getSnapshot(self)))
+        yield save(key, filterSnapshotKeys(getSnapshot(self)),Password)
       }),
 
       beforeDetach() {

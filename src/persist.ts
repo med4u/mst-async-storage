@@ -3,8 +3,7 @@ var CryptoJS = require("crypto-js");
 
 export async function save(key: string, snapshot: {},cryptoPassword:string) {
   const data = JSON.stringify(snapshot)
-  const encryptedData = CryptoJS.AES.encrypt(data,cryptoPassword).toString()
-  await AsyncStorage.setItem(key, encryptedData)
+  await AsyncStorage.setItem(key, CryptoJS.AES.encrypt(data,cryptoPassword).toString())
 }
 
 export async function load(key: string,cryptoPassword:string) {

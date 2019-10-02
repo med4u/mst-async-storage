@@ -14,7 +14,9 @@ export async function load(key: string,cryptoPassword:string) {
     if (raw) {
       return JSON.parse(data)
     }
-  } catch {}
+  } catch {
+    console.log('erreur')
+  }
 
   return undefined
 }

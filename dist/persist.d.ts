@@ -1,2 +1,2 @@
-export declare function save(key: string, snapshot: {}, cryptoPassword: string): Promise<void>;
-export declare function load(key: string, cryptoPassword: string): Promise<any>;
+export declare function save(key: string, snapshot: {}): Promise<void>;
+export declare function load(key: string): Promise<any>;

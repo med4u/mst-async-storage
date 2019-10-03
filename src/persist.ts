@@ -1,18 +1,16 @@
 const AsyncStorage = require("@react-native-community/async-storage")
-var CryptoJS = require("crypto-js");
 
-export async function save(key: string, snapshot: {},cryptoPassword:string) {
+export async function save(key: string, snapshot: {}) {
   const data = JSON.stringify(snapshot)
-  await AsyncStorage.setItem(key, CryptoJS.AES.encrypt(data,cryptoPassword).toString())
+  await AsyncStorage.setItem(key, data)
 }
 
-export async function load(key: string,cryptoPassword:string) {
+export async function load(key: string) {
   try {
     const raw = await AsyncStorage.getItem(key)
     if (raw) {
-      let bytes = CryptoJS.AES.decrypt(raw,cryptoPassword)
-      let data = bytes.toString(CryptoJS.enc.Utf8)
-      return JSON.parse(data)
+
+      return JSON.parse(raw)
     }
   } catch {
     console.log('erreur')

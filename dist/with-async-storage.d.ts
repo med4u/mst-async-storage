@@ -1,7 +1,6 @@
 import { IStateTreeNode } from "mobx-state-tree";
 export interface WithAsyncStorageOptions {
     key?: string;
-    CryptoPassword?: string;
     autoSave?: boolean;
     only?: string | string[];
     except?: string | string[];

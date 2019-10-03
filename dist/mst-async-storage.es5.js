@@ -37,15 +37,14 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
     }
 };
 var AsyncStorage = require("@react-native-community/async-storage");
-var CryptoJS = require("crypto-js");
-function save(key, snapshot, cryptoPassword) {
+function save(key, snapshot) {
     return __awaiter(this, void 0, void 0, function () {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     data = JSON.stringify(snapshot);
-                    return [4, AsyncStorage.setItem(key, CryptoJS.AES.encrypt(data, cryptoPassword).toString())];
+                    return [4, AsyncStorage.setItem(key, data)];
                 case 1:
                     _a.sent();
                     return [2];
@@ -53,9 +52,9 @@ function save(key, snapshot, cryptoPassword) {
         });
     });
 }
-function load(key, cryptoPassword) {
+function load(key) {
     return __awaiter(this, void 0, void 0, function () {
-        var raw, bytes, data, _a;
+        var raw, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -64,9 +63,7 @@ function load(key, cryptoPassword) {
                 case 1:
                     raw = _b.sent();
                     if (raw) {
-                        bytes = CryptoJS.AES.decrypt(raw, cryptoPassword);
-                        data = bytes.toString(CryptoJS.enc.Utf8);
-                        return [2, JSON.parse(data)];
+                        return [2, JSON.parse(raw)];
                     }
                     return [3, 3];
                 case 2:
@@ -123,10 +120,9 @@ var withAsyncStorage = function (options) {
         var disposer;
         var key = options.key || getType(self).name;
         var autoSave = typeof options.autoSave === "boolean" ? options.autoSave : true;
-        var Password = options.CryptoPassword || "DefaultPassword";
         var enableSaving = function () {
             disposer && disposer();
-            disposer = onSnapshot(self, function (snapshot) { return save(key, filterSnapshotKeys(snapshot), Password); });
+            disposer = onSnapshot(self, function (snapshot) { return save(key, filterSnapshotKeys(snapshot)); });
         };
         function filterSnapshotKeys(snapshot) {
             if (!snapshot)
@@ -159,7 +155,7 @@ var withAsyncStorage = function (options) {
                     var data;
                     return __generator$1(this, function (_a) {
                         switch (_a.label) {
-                            case 0: return [4, load(key, Password)];
+                            case 0: return [4, load(key)];
                             case 1:
                                 data = _a.sent();
                                 if (data) {
@@ -175,7 +171,7 @@ var withAsyncStorage = function (options) {
                 save: flow(function () {
                     return __generator$1(this, function (_a) {
                         switch (_a.label) {
-                            case 0: return [4, save(key, filterSnapshotKeys(getSnapshot(self)), Password)];
+                            case 0: return [4, save(key, filterSnapshotKeys(getSnapshot(self)))];
                             case 1:
                                 _a.sent();
                                 return [2];

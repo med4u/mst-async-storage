@@ -68,7 +68,7 @@ function load(key) {
                     return [3, 3];
                 case 2:
                     _a = _b.sent();
-                    console.log('erreur');
+                    console.log("erreur");
                     return [3, 3];
                 case 3: return [2, undefined];
             }

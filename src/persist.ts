@@ -13,7 +13,7 @@ export async function load(key: string) {
       return JSON.parse(raw)
     }
   } catch {
-    console.log('erreur')
+    console.log("erreur")
   }
 
   return undefined

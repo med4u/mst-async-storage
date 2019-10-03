@@ -36,8 +36,7 @@
   },
   "peerDependencies": {
     "@react-native-community/async-storage": "1.x.x",
-    "mobx-state-tree": "2.x || 3.x",
-    "crypto-js": "^3.1.9-1"
+    "mobx-state-tree": "2.x || 3.x"
   },
   "devDependencies": {
     "@react-native-community/async-storage": "^1.6.1",

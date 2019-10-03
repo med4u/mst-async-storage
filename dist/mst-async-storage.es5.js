@@ -63,9 +63,9 @@ function load(key, cryptoPassword) {
                     return [4, AsyncStorage.getItem(key)];
                 case 1:
                     raw = _b.sent();
-                    bytes = CryptoJS.AES.decrypt(raw, cryptoPassword);
-                    data = bytes.toString(CryptoJS.enc.Utf8);
                     if (raw) {
+                        bytes = CryptoJS.AES.decrypt(raw, cryptoPassword);
+                        data = bytes.toString(CryptoJS.enc.Utf8);
                         return [2, JSON.parse(data)];
                     }
                     return [3, 3];
